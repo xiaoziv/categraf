@@ -32,9 +32,9 @@ func init() {
 	})
 }
 
-func (r *NginxUpstreamCheck) Init() error                    { return nil }
-func (r *NginxUpstreamCheck) Drop()                          {}
-func (r *NginxUpstreamCheck) Gather(slist *types.SampleList) {}
+func (r *NginxUpstreamCheck) Init() error               { return nil }
+func (r *NginxUpstreamCheck) Drop()                     {}
+func (r *NginxUpstreamCheck) Gather() *types.SampleList { return nil }
 
 func (r *NginxUpstreamCheck) GetInstances() []inputs.Instance {
 	ret := make([]inputs.Instance, len(r.Instances))

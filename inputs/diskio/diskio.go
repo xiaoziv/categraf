@@ -48,7 +48,7 @@ func (d *DiskIO) Init() error {
 	return nil
 }
 
-func (d *DiskIO) Gather(slist *types.SampleList) {
+func (d *DiskIO) Gather() *types.SampleList {
 	devices := []string{}
 	if d.deviceFilter == nil {
 		// no glob chars
@@ -58,8 +58,10 @@ func (d *DiskIO) Gather(slist *types.SampleList) {
 	diskio, err := d.ps.DiskIO(devices)
 	if err != nil {
 		log.Println("E! failed to get disk io:", err)
-		return
+		return nil
 	}
+
+	slist := types.NewSampleList()
 
 	for _, io := range diskio {
 		if d.deviceFilter != nil && !d.deviceFilter.Match(io.Name) {
@@ -82,4 +84,5 @@ func (d *DiskIO) Gather(slist *types.SampleList) {
 
 		slist.PushSamples("diskio", fields, map[string]string{"name": io.Name})
 	}
+	return slist
 }

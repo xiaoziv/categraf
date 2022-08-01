@@ -135,9 +135,9 @@ func init() {
 	})
 }
 
-func (p *Prometheus) Init() error                    { return nil }
-func (p *Prometheus) Drop()                          {}
-func (p *Prometheus) Gather(slist *types.SampleList) {}
+func (p *Prometheus) Init() error               { return nil }
+func (p *Prometheus) Drop()                     {}
+func (p *Prometheus) Gather() *types.SampleList { return nil }
 
 func (p *Prometheus) GetInstances() []inputs.Instance {
 	ret := make([]inputs.Instance, len(p.Instances))

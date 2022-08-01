@@ -214,23 +214,26 @@ func (s *NfsClient) Init() error {
 
 func (r *NfsClient) Drop() {}
 
-func (s *NfsClient) Gather(slist *types.SampleList) {
+func (s *NfsClient) Gather() *types.SampleList {
 	file, err := os.Open(s.mountstatsPath)
 	if err != nil {
 		log.Println("E! Failed opening the", file, "file:", err)
-		return
+		return nil
 	}
 	defer file.Close()
 
+	slist := types.NewSampleList()
 	scanner := bufio.NewScanner(file)
 	if err := s.processText(scanner, slist); err != nil {
-		return
+		return nil
 	}
 
 	if err := scanner.Err(); err != nil {
 		log.Println("E!", err)
 	}
+	return slist
 }
+
 func (s *NfsClient) GetInstances() []inputs.Instance {
 	return nil
 }

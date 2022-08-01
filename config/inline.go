@@ -72,6 +72,9 @@ func (ic *InternalConfig) InitInternalConfig() error {
 }
 
 func (ic *InternalConfig) Process(slist *types.SampleList) *types.SampleList {
+	if slist == nil {
+		return nil
+	}
 	nlst := types.NewSampleList()
 	if slist.Len() == 0 {
 		return nlst

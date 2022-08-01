@@ -49,18 +49,20 @@ func (s *NetIOStats) Init() error {
 	return nil
 }
 
-func (s *NetIOStats) Gather(slist *types.SampleList) {
+func (s *NetIOStats) Gather() *types.SampleList {
 	netio, err := s.ps.NetIO()
 	if err != nil {
 		log.Println("E! failed to get net io metrics:", err)
-		return
+		return nil
 	}
 
 	interfaces, err := net.Interfaces()
 	if err != nil {
 		log.Println("E! failed to list interfaces:", err)
-		return
+		return nil
 	}
+
+	slist := types.NewSampleList()
 
 	interfacesByName := map[string]net.Interface{}
 	for _, iface := range interfaces {
@@ -112,4 +114,5 @@ func (s *NetIOStats) Gather(slist *types.SampleList) {
 
 		slist.PushSamples(inputName, fields, tags)
 	}
+	return slist
 }

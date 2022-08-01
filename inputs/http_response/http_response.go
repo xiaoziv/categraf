@@ -145,9 +145,9 @@ func init() {
 	})
 }
 
-func (h *HTTPResponse) Init() error                    { return nil }
-func (h *HTTPResponse) Drop()                          {}
-func (h *HTTPResponse) Gather(slist *types.SampleList) {}
+func (h *HTTPResponse) Init() error               { return nil }
+func (h *HTTPResponse) Drop()                     {}
+func (h *HTTPResponse) Gather() *types.SampleList { return nil }
 
 func (h *HTTPResponse) GetInstances() []inputs.Instance {
 	ret := make([]inputs.Instance, len(h.Instances))

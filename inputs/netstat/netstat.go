@@ -30,11 +30,11 @@ func (s *NetStats) Init() error                     { return nil }
 func (s *NetStats) Drop()                           {}
 func (s *NetStats) GetInstances() []inputs.Instance { return nil }
 
-func (s *NetStats) Gather(slist *types.SampleList) {
+func (s *NetStats) Gather() *types.SampleList {
 	netconns, err := s.ps.NetConnections()
 	if err != nil {
 		log.Println("E! failed to get net connections:", err)
-		return
+		return nil
 	}
 
 	counts := make(map[string]int)
@@ -70,5 +70,5 @@ func (s *NetStats) Gather(slist *types.SampleList) {
 		"udp_socket":      counts["UDP"],
 	}
 
-	slist.PushSamples(inputName, fields, tags)
+	return types.NewSampleListWithSamples(inputName, fields, tags)
 }

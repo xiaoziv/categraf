@@ -38,7 +38,7 @@ func (p *Processes) Init() error                     { return nil }
 func (p *Processes) Drop()                           {}
 func (p *Processes) GetInstances() []inputs.Instance { return nil }
 
-func (p *Processes) Gather(slist *types.SampleList) {
+func (p *Processes) Gather() *types.SampleList {
 	// Get an empty map of metric fields
 	fields := getEmptyFields()
 
@@ -64,7 +64,7 @@ func (p *Processes) Gather(slist *types.SampleList) {
 		}
 	}
 
-	slist.PushSamples(inputName, fields)
+	return types.NewSampleListWithSamples(inputName, fields)
 }
 
 // Gets empty fields of metrics based on the OS

@@ -49,10 +49,12 @@ func (s *GPUStats) Init() error {
 	return nil
 }
 
-func (s *GPUStats) Gather(slist *types.SampleList) {
+func (s *GPUStats) Gather() *types.SampleList {
 	if s.NvidiaSmiCommand == "" {
-		return
+		return nil
 	}
+
+	slist := types.NewSampleList()
 
 	begun := time.Now()
 
@@ -65,7 +67,7 @@ func (s *GPUStats) Gather(slist *types.SampleList) {
 	currentTable, err := scrape(s.qFields, s.NvidiaSmiCommand)
 	if err != nil {
 		slist.PushFront(types.NewSample(inputName, "scraper_up", 0))
-		return
+		return slist
 	}
 
 	slist.PushFront(types.NewSample(inputName, "scraper_up", 1))
@@ -101,4 +103,5 @@ func (s *GPUStats) Gather(slist *types.SampleList) {
 			slist.PushFront(types.NewSample(inputName, metricInfo.metricName, num, map[string]string{"uuid": uuid}))
 		}
 	}
+	return slist
 }

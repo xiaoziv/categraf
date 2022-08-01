@@ -31,9 +31,9 @@ func init() {
 	})
 }
 
-func (l *Logstash) Init() error                    { return nil }
-func (l *Logstash) Drop()                          {}
-func (l *Logstash) Gather(slist *types.SampleList) {}
+func (l *Logstash) Init() error               { return nil }
+func (l *Logstash) Drop()                     {}
+func (l *Logstash) Gather() *types.SampleList { return nil }
 
 func (l *Logstash) GetInstances() []inputs.Instance {
 	ret := make([]inputs.Instance, len(l.Instances))

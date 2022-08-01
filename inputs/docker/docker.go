@@ -50,9 +50,9 @@ func init() {
 	})
 }
 
-func (d *Docker) Init() error                     { return nil }
-func (d *Docker) Drop()                           {}
-func (d *Docker) Gather(slist *itypes.SampleList) {}
+func (d *Docker) Init() error                { return nil }
+func (d *Docker) Drop()                      {}
+func (d *Docker) Gather() *itypes.SampleList { return nil }
 
 func (d *Docker) GetInstances() []inputs.Instance {
 	ret := make([]inputs.Instance, len(d.Instances))

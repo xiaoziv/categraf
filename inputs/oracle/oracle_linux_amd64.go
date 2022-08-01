@@ -59,8 +59,8 @@ func init() {
 	})
 }
 
-func (o *Oracle) Init() error                    { return nil }
-func (o *Oracle) Gather(slist *types.SampleList) {}
+func (o *Oracle) Init() error               { return nil }
+func (o *Oracle) Gather() *types.SampleList { return nil }
 
 func (o *Oracle) Drop() {
 	for i := 0; i < len(o.Instances); i++ {

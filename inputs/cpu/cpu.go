@@ -32,12 +32,13 @@ func (c *CPUStats) Init() error                     { return nil }
 func (c *CPUStats) Drop()                           {}
 func (c *CPUStats) GetInstances() []inputs.Instance { return nil }
 
-func (c *CPUStats) Gather(slist *types.SampleList) {
+func (c *CPUStats) Gather() *types.SampleList {
 	times, err := c.ps.CPUTimes(c.CollectPerCPU, true)
 	if err != nil {
 		log.Println("E! failed to get cpu metrics:", err)
-		return
+		return nil
 	}
+	slist := types.NewSampleList()
 
 	for _, cts := range times {
 		tags := map[string]string{
@@ -92,6 +93,7 @@ func (c *CPUStats) Gather(slist *types.SampleList) {
 	for _, cts := range times {
 		c.lastStats[cts.CPU] = cts
 	}
+	return slist
 }
 
 func totalCPUTime(t cpuUtil.TimesStat) float64 {

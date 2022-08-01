@@ -93,9 +93,9 @@ func init() {
 	})
 }
 
-func (n *NetResponse) Init() error                    { return nil }
-func (n *NetResponse) Drop()                          {}
-func (n *NetResponse) Gather(slist *types.SampleList) {}
+func (n *NetResponse) Init() error               { return nil }
+func (n *NetResponse) Drop()                     {}
+func (n *NetResponse) Gather() *types.SampleList { return nil }
 
 func (n *NetResponse) GetInstances() []inputs.Instance {
 	ret := make([]inputs.Instance, len(n.Instances))

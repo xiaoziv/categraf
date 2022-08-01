@@ -32,11 +32,11 @@ func (s *MemStats) Init() error                     { return nil }
 func (s *MemStats) Drop()                           {}
 func (s *MemStats) GetInstances() []inputs.Instance { return nil }
 
-func (s *MemStats) Gather(slist *types.SampleList) {
+func (s *MemStats) Gather() *types.SampleList {
 	vm, err := s.ps.VMStat()
 	if err != nil {
 		log.Println("E! failed to get vmstat:", err)
-		return
+		return nil
 	}
 
 	fields := map[string]interface{}{
@@ -101,5 +101,5 @@ func (s *MemStats) Gather(slist *types.SampleList) {
 		}
 	}
 
-	slist.PushSamples(inputName, fields)
+	return types.NewSampleListWithSamples(inputName, fields)
 }

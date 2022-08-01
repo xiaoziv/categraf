@@ -15,8 +15,6 @@ import (
 	"flashcat.cloud/categraf/writer"
 )
 
-const agentHostnameLabelKey = "agent_hostname"
-
 var metricReplacer = strings.NewReplacer("-", "_", ".", "_", " ", "_", "'", "_", "\"", "_")
 
 type InputReader struct {
@@ -83,9 +81,7 @@ func (r *InputReader) gatherOnce() {
 	}()
 
 	// plugin level, for system plugins
-	slist := types.NewSampleList()
-	r.input.Gather(slist)
-	r.forward(r.input.Process(slist))
+	r.forward(r.input.Process(r.input.Gather()))
 
 	instances := r.input.GetInstances()
 	if len(instances) == 0 {
@@ -117,6 +113,9 @@ func (r *InputReader) gatherOnce() {
 }
 
 func (r *InputReader) forward(slist *types.SampleList) {
+	if slist == nil {
+		return
+	}
 	arr := slist.PopBackAll()
 	for i := 0; i < len(arr); i++ {
 		writer.PushQueue(arr[i])

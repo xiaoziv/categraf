@@ -32,9 +32,9 @@ func init() {
 	})
 }
 
-func (k *Kubernetes) Init() error                    { return nil }
-func (k *Kubernetes) Drop()                          {}
-func (k *Kubernetes) Gather(slist *types.SampleList) {}
+func (k *Kubernetes) Init() error               { return nil }
+func (k *Kubernetes) Drop()                     {}
+func (k *Kubernetes) Gather() *types.SampleList { return nil }
 
 func (k *Kubernetes) GetInstances() []inputs.Instance {
 	ret := make([]inputs.Instance, len(k.Instances))

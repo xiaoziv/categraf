@@ -41,12 +41,14 @@ func (s *DiskStats) Init() error {
 func (s *DiskStats) Drop() {
 }
 
-func (s *DiskStats) Gather(slist *types.SampleList) {
+func (s *DiskStats) Gather() *types.SampleList {
 	disks, partitions, err := s.ps.DiskUsage(s.MountPoints, s.IgnoreFS)
 	if err != nil {
 		log.Println("E! failed to get disk usage:", err)
-		return
+		return nil
 	}
+
+	slist := types.NewSampleList()
 
 	for i, du := range disks {
 		if du.Total == 0 {
@@ -85,6 +87,7 @@ func (s *DiskStats) Gather(slist *types.SampleList) {
 
 		slist.PushSamples("disk", fields, tags)
 	}
+	return slist
 }
 
 type MountOptions []string

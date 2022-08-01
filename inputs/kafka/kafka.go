@@ -28,8 +28,8 @@ func init() {
 	})
 }
 
-func (r *Kafka) Init() error                    { return nil }
-func (r *Kafka) Gather(slist *types.SampleList) {}
+func (r *Kafka) Init() error               { return nil }
+func (r *Kafka) Gather() *types.SampleList { return nil }
 
 func (r *Kafka) GetInstances() []inputs.Instance {
 	ret := make([]inputs.Instance, len(r.Instances))

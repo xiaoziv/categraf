@@ -30,17 +30,17 @@ func (s *SystemStats) Init() error                     { return nil }
 func (s *SystemStats) Drop()                           {}
 func (s *SystemStats) GetInstances() []inputs.Instance { return nil }
 
-func (s *SystemStats) Gather(slist *types.SampleList) {
+func (s *SystemStats) Gather() *types.SampleList {
 	loadavg, err := load.Avg()
 	if err != nil && !strings.Contains(err.Error(), "not implemented") {
 		log.Println("E! failed to gather system load:", err)
-		return
+		return nil
 	}
 
 	numCPUs, err := cpu.Counts(true)
 	if err != nil {
 		log.Println("E! failed to gather cpu number:", err)
-		return
+		return nil
 	}
 
 	fields := map[string]interface{}{
@@ -70,6 +70,5 @@ func (s *SystemStats) Gather(slist *types.SampleList) {
 			log.Println("W! reading os users:", err)
 		}
 	}
-
-	slist.PushSamples(inputName, fields)
+	return types.NewSampleListWithSamples(inputName, fields)
 }

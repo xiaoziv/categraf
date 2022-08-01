@@ -34,7 +34,8 @@ func (n *NTPStat) Init() error {
 	return nil
 }
 
-func (n *NTPStat) Gather(slist *types.SampleList) {
+func (n *NTPStat) Gather() *types.SampleList {
+	slist := types.NewSampleList()
 	for _, server := range n.NTPServers {
 		if n.server == "" {
 			n.server = server
@@ -57,4 +58,5 @@ func (n *NTPStat) Gather(slist *types.SampleList) {
 		slist.PushSample("", "ntp_offset_ms", delta)
 		break
 	}
+	return slist
 }

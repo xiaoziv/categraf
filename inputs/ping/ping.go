@@ -89,9 +89,9 @@ func init() {
 	})
 }
 
-func (p *Ping) Init() error                    { return nil }
-func (p *Ping) Drop()                          {}
-func (p *Ping) Gather(slist *types.SampleList) {}
+func (p *Ping) Init() error               { return nil }
+func (p *Ping) Drop()                     {}
+func (p *Ping) Gather() *types.SampleList { return nil }
 
 func (p *Ping) GetInstances() []inputs.Instance {
 	ret := make([]inputs.Instance, len(p.Instances))

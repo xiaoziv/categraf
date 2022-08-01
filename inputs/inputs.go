@@ -13,7 +13,7 @@ type Input interface {
 
 	Init() error
 	Drop()
-	Gather(*types.SampleList)
+	Gather() *types.SampleList
 	GetInstances() []Instance
 }
 

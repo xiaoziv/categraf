@@ -33,8 +33,8 @@ func init() {
 	})
 }
 
-func (s *Switch) Drop()                          {}
-func (s *Switch) Gather(slist *types.SampleList) {}
+func (s *Switch) Drop()                     {}
+func (s *Switch) Gather() *types.SampleList { return nil }
 
 func (s *Switch) MappingIP(ip string) string {
 	val, has := s.Mappings[ip]

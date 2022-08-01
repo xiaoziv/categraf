@@ -14,6 +14,12 @@ func NewSampleList() *SampleList {
 	return &SampleList{L: list.New()}
 }
 
+func NewSampleListWithSamples(prefix string, fields map[string]interface{}, labels ...map[string]string) *SampleList {
+	l := NewSampleList()
+	l.PushSamples(prefix, fields, labels...)
+	return l
+}
+
 func (l *SampleList) PushSample(prefix, metric string, value interface{}, labels ...map[string]string) *list.Element {
 	l.Lock()
 	v := NewSample(prefix, metric, value, labels...)

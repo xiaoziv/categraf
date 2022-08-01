@@ -25,9 +25,9 @@ func init() {
 	})
 }
 
-func (r *JolokiaProxy) Init() error                    { return nil }
-func (r *JolokiaProxy) Drop()                          {}
-func (r *JolokiaProxy) Gather(slist *types.SampleList) {}
+func (r *JolokiaProxy) Init() error               { return nil }
+func (r *JolokiaProxy) Drop()                     {}
+func (r *JolokiaProxy) Gather() *types.SampleList { return nil }
 
 func (r *JolokiaProxy) GetInstances() []inputs.Instance {
 	ret := make([]inputs.Instance, len(r.Instances))

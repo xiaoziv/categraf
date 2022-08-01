@@ -24,8 +24,8 @@ func init() {
 	})
 }
 
-func (r *MongoDB) Init() error                    { return nil }
-func (r *MongoDB) Gather(slist *types.SampleList) {}
+func (r *MongoDB) Init() error               { return nil }
+func (r *MongoDB) Gather() *types.SampleList { return nil }
 
 func (r *MongoDB) GetInstances() []inputs.Instance {
 	ret := make([]inputs.Instance, len(r.Instances))

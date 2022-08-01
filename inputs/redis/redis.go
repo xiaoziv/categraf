@@ -75,8 +75,8 @@ func init() {
 	})
 }
 
-func (r *Redis) Init() error                    { return nil }
-func (r *Redis) Gather(slist *types.SampleList) {}
+func (r *Redis) Init() error               { return nil }
+func (r *Redis) Gather() *types.SampleList { return nil }
 
 func (r *Redis) GetInstances() []inputs.Instance {
 	ret := make([]inputs.Instance, len(r.Instances))
