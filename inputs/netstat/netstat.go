@@ -83,7 +83,7 @@ func (s *NetStats) gatherNetStat(slist *types.SampleList) {
 }
 
 func (s *NetStats) gatherExt(slist *types.SampleList) {
-	if !(s.TcpExt && s.IpExt) {
+	if !s.TcpExt && !s.IpExt {
 		return
 	}
 	tags := map[string]string{}
